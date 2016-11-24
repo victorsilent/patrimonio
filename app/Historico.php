@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Historico extends Model
 {
     
-
+	protected $table = 'historicos';
 
     public function patrimonio()
     {
