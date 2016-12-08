@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTimestampToLocais extends Migration
+class ChangeColumnEmprestimo extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddTimestampToLocais extends Migration
      */
     public function up()
     {
-        Schema::table('locais', function($table) {
-            $table->timestamps();
+        Schema::table('emprestimos', function (Blueprint $table) {
+
+            $table->date('data_devolucao')->nulabble()->change();
+
         });
     }
 

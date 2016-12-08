@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Patrimonio;
+use App\Local;
 class Historico extends Model
 {
     
@@ -16,11 +17,13 @@ class Historico extends Model
 
     public function origem()
     {
-    	return $this->hasOne('App\Local');
+    	return $this->belongsTo('App\Local','origem_id');
     }
 
     public function destino()
     {
-    	return $this->hasOne('App\Local');
+        return $this->belongsTo('App\Local','destino_id');
     }
+
+
 }

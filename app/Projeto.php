@@ -10,6 +10,6 @@ class Projeto extends Model
 	
     public function patrimonio()
     {
-    	return $this->belongsTo('App\Patrimonio');
+    	return $this->hasMany('App\Patrimonio');
     }
 }

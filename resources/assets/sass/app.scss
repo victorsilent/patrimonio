@@ -1,9 +1,28 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+body{
+	font-family: $font-family;
+}
+
+
+//bootstrap changes
+.label{
+	font-size:12px;
+}
+
+hr{
+	margin-bottom: 20px
+}
+
+#historico-patrimonio{
+	margin-top:70px;
+}

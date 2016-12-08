@@ -23,6 +23,14 @@ class CreatePatrimoniosTable extends Migration
             $table->string('status_emprestimo');
             $table->string('status_uso');
             $table->text('descricao');
+
+            $table->unsignedInteger('tipo_id');
+            $table->unsignedInteger('local_id');
+            $table->unsignedInteger('projeto_id');
+            
+            $table->foreign('tipo_id')->references('id')->on('tipos');
+            $table->foreign('local_id')->references('id')->on('locais');
+            $table->foreign('projeto_id')->references('id')->on('projetos');  
             
             $table->timestamps();
         });

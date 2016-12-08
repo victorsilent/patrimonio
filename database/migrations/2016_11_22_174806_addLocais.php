@@ -17,6 +17,7 @@ class AddLocais extends Migration
         Schema::create('locais', function (Blueprint $table) {
             $table->increments('id')->index();
             $table->string('local');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class AddLocais extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('locais');
     }
 }

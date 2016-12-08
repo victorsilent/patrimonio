@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tipo extends Model
 {
 	protected $table = 'tipos';
-    public function patrimonio()
+
+    public function patrimonios()
     {
-    	return $this->belongsTo('App\Patrimonio');
+    	return $this->hasMany('App\Patrimonio');
     }
 }

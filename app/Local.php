@@ -3,18 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Historico;
 class Local extends Model
 {
 	protected $table = 'locais';
 
-    public function patrimonio()
+    public function patrimonios()
     {
-    	return $this->belongsTo('App\Patrimonio');
+    	return $this->hasMany('App\Patrimonio');
     }
 
-    public function historico()
+    public function historicos()
     {
-    	return $this->belongsTo('App\Historico');
+    	return $this->hasMany('App\Historico','origem_id');
+    }
+
+    public function emprestimos()
+    {
+    	return $this->hasMany('App\Emprestimo');
     }
 }

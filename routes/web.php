@@ -12,5 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', 'HomeController@index');
+    Route::resource('patrimonios','PatrimonioController');
+    Route::resource('patrimonios.emprestimos', 'EmprestimoController');
+});
+
+
+

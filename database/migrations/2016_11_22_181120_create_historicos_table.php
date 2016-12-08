@@ -16,9 +16,14 @@ class CreateHistoricosTable extends Migration
         Schema::create('historicos', function (Blueprint $table) {
             $table->increments('id');
             $table->date('data_movimentacao');
-            $table->integer('patrimonio_id')->unsigned()->index();
-            $table->integer('origem_id')->unsigned()->index();
-            $table->integer('destino_id')->unsigned()->index();
+
+            $table->unsignedInteger('patrimonio_id');
+            $table->unsignedInteger('origem_id');
+            $table->unsignedInteger('destino_id');
+
+            $table->foreign('patrimonio_id')->references('id')->on('patrimonios');
+            $table->foreign('origem_id')->references('id')->on('locais');
+            $table->foreign('destino_id')->references('id')->on('locais');
             $table->timestamps();
         });
     }
