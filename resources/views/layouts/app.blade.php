@@ -45,7 +45,7 @@
                     @if (Auth::check())            
                         <ul class="nav navbar-nav">
                            <li><a href="{{route('patrimonios.index')}}">Patrimônios</a></li>
-                           <li><a href="#">Projetos</a></li>
+                           <li><a href="{{route('projetos.index')}}">Projetos</a></li>
                            <li><a href="#">Locais</a></li>
                            <li><a href="#">Tipos</a></li>
                         </ul>

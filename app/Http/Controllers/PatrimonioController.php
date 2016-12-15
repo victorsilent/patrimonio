@@ -12,10 +12,6 @@ use Validator;
 
 class PatrimonioController extends Controller
 {
-    protected $rules = [
-        'patrimonio' => 'required|unique:patrimonios|max:60',
-        'tipo_id' => 'required',
-    ];
 
     /**
      * Display a listing of the resource.
@@ -50,7 +46,10 @@ class PatrimonioController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), [
+            'patrimonio' => 'required|unique:patrimonios|max:60',
+            'tipo_id' => 'required',
+        ]);
 
         if ($validator->fails()) {
             return redirect('patrimonios/create')

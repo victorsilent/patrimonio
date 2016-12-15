@@ -78,7 +78,6 @@ $factory->define(App\Emprestimo::class, function (Faker\Generator $faker) {
 
 
 $factory->define(App\Historico::class, function (Faker\Generator $faker) {
-
     return [
 
     	'data_movimentacao' => $faker->dateTime('now'),

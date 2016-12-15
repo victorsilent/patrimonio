@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>
-                    Listagem de Patrimonios TODO - Delete
+                    Listagem de Patrimonios
                     <a class="btn btn-primary pull-right" href="{{route('patrimonios.create')}}">
                         Cadastrar Patrimonio
                     </a> 
