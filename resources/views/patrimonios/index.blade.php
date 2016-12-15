@@ -37,9 +37,7 @@
                             @if($patrimonio->status_emprestimo && $patrimonio->status_uso )
                                 Emprestado
                             @else
-                                <a href="{{route('patrimonios.emprestimos.create', $patrimonio->id)}}">
-                                    Disponível
-                                </a>                            
+                                    Disponível                          
                             @endif
                         </td>
                         <td>

@@ -7,6 +7,9 @@ use App\Historico;
 class Local extends Model
 {
 	protected $table = 'locais';
+	protected $fillable = [
+		'local'
+	];
 
     public function patrimonios()
     {

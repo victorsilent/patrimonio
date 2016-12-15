@@ -82,7 +82,7 @@
 					{{Form::select('status_uso',['0'=>'Inservível','1'=>'Usável'],null,['class' => 'form-control','placeholder' => 'Selecione o status de uso'])}}
 				</div>
 				<hr>
-				{{Form::submit('Cadastrar Patrimônio',['class'=> 'form-control btn btn-primary'])}}
+				{{Form::submit('Editar Patrimônio',['class'=> 'form-control btn btn-primary'])}}
 			</div>
 		{!! Form::close() !!}
 

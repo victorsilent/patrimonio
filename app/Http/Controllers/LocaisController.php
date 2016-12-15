@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Projeto;
+use App\Local;
 use App\Patrimonio;
 use Validator;
 
-class ProjetosController extends Controller
+class LocaisController extends Controller
 {
-
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        
-        $projetos = Projeto::all();
-        return view('projetos.index')->with('projetos', $projetos);
+        $locais = Local::all();
+        return view('locais.index')->with('locais',$locais);
     }
 
     /**
@@ -25,7 +27,7 @@ class ProjetosController extends Controller
      */
     public function create()
     {
-        return view("projetos.create");
+        return view('locais.create');
     }
 
     /**
@@ -36,20 +38,18 @@ class ProjetosController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'projeto' => 'required|unique:projetos|max:120',
+            'local' => 'required|unique:locais|max:60',
         ]);
 
         if ($validator->fails()) {
-            return redirect('projetos/create')
+            return redirect('locais/create')
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        $projeto = $request->all();
-        Projeto::create($projeto);
-        return redirect('projetos');
+        Local::create($request->all());
+        return redirect('locais');
     }
 
     /**
@@ -58,10 +58,13 @@ class ProjetosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Projeto $projeto)
+    public function show($id)
     {
-        $patrimonios = Patrimonio::with('projeto')->where('projeto_id',$projeto->id)->get();
-        return view('projetos.show')->with('patrimonios',$patrimonios)->with('projeto',$projeto);
+        //TODO Ver porque com Local $local não esta dando certo
+        $local = Local::findOrFail($id);
+        $patrimonios = Patrimonio::with('local')->where('local_id',$local->id)->get();
+        
+        return view('locais.show')->with('local',$local)->with('patrimonios',$patrimonios);
     }
 
     /**
@@ -70,9 +73,10 @@ class ProjetosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Projeto $projeto)
+    public function edit($id)
     {
-        return view("projetos.edit")->with("projeto",$projeto);
+        $local = Local::findOrFail($id);
+        return view('locais.edit')->with('local',$local);
     }
 
     /**
@@ -82,20 +86,30 @@ class ProjetosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Projeto $projeto)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'projeto' => 'required|unique:projetos|max:120',
+            'local' => 'required|unique:locais|max:60',
         ]);
 
         if ($validator->fails()) {
-            return redirect('projetos/create')
+            return redirect('locais/create')
                         ->withErrors($validator)
                         ->withInput();
         }
-
-        $projeto->update($request->all());
-        return redirect('projetos');
+        $local = Local::findOrFail($id);
+        $local->update($request->all());
+        return redirect('locais');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

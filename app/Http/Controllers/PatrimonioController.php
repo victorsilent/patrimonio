@@ -105,9 +105,12 @@ class PatrimonioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Patrimonio $patrimonio)
     {
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), [
+            'patrimonio' => 'required|unique:patrimonios|max:60',
+            'tipo_id' => 'required',
+        ]);
 
         if ($validator->fails()) {
             return redirect('patrimonios/create')
@@ -115,9 +118,8 @@ class PatrimonioController extends Controller
                         ->withInput();
         }
 
-        $patrimonio = $request->all();
         $patrimonio['status_emprestimo'] = false;
-        Patrimonio::update($patrimonio);
+        $patrimonio->update($request->all());
         return redirect('patrimonios');
     }
 

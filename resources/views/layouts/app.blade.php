@@ -46,8 +46,8 @@
                         <ul class="nav navbar-nav">
                            <li><a href="{{route('patrimonios.index')}}">Patrimônios</a></li>
                            <li><a href="{{route('projetos.index')}}">Projetos</a></li>
-                           <li><a href="#">Locais</a></li>
-                           <li><a href="#">Tipos</a></li>
+                           <li><a href="{{route('locais.index')}}">Locais</a></li>
+                           <li><a href="{{route('tipos.index')}}">Tipos</a></li>
                         </ul>
                     @endif
 

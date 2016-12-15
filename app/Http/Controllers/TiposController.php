@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Projeto;
-use App\Patrimonio;
+
 use Validator;
+use App\Patrimonio;
+use App\Tipo;
 
-class ProjetosController extends Controller
+class TiposController extends Controller
 {
-
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        
-        $projetos = Projeto::all();
-        return view('projetos.index')->with('projetos', $projetos);
+        $tipos = Tipo::all();
+        return view('tipos.index')->with('tipos', $tipos);
     }
 
     /**
@@ -25,7 +28,7 @@ class ProjetosController extends Controller
      */
     public function create()
     {
-        return view("projetos.create");
+        return view('tipos.create');
     }
 
     /**
@@ -36,20 +39,19 @@ class ProjetosController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'projeto' => 'required|unique:projetos|max:120',
+            'tipo' => 'required|unique:tipos|max:120',
         ]);
 
         if ($validator->fails()) {
-            return redirect('projetos/create')
+            return redirect('tipos/create')
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        $projeto = $request->all();
-        Projeto::create($projeto);
-        return redirect('projetos');
+        $tipo = $request->all();
+        Tipo::create($tipo);
+        return redirect('tipos');
     }
 
     /**
@@ -58,10 +60,10 @@ class ProjetosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Projeto $projeto)
+    public function show(Tipo $tipo)
     {
-        $patrimonios = Patrimonio::with('projeto')->where('projeto_id',$projeto->id)->get();
-        return view('projetos.show')->with('patrimonios',$patrimonios)->with('projeto',$projeto);
+        $patrimonios = Patrimonio::where('tipo_id',$tipo->id)->get();
+        return view('tipos.show')->with('tipo', $tipo)->with('patrimonios',$patrimonios);
     }
 
     /**
@@ -70,9 +72,9 @@ class ProjetosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Projeto $projeto)
+    public function edit(Tipo $tipo)
     {
-        return view("projetos.edit")->with("projeto",$projeto);
+        return view('tipos.edit')->with('tipo', $tipo);
     }
 
     /**
@@ -82,20 +84,31 @@ class ProjetosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Projeto $projeto)
+    public function update(Request $request, Tipo $tipo)
     {
         $validator = Validator::make($request->all(), [
-            'projeto' => 'required|unique:projetos|max:120',
+            'tipo' => 'required|unique:tipos|max:120',
         ]);
 
         if ($validator->fails()) {
-            return redirect('projetos/create')
+            return redirect('tipos/create')
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        $projeto->update($request->all());
-        return redirect('projetos');
+        
+        $tipo->update($request->all());
+        return redirect('tipos');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

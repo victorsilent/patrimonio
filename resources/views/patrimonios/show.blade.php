@@ -8,7 +8,10 @@
                 {{$patrimonio->patrimonio}}
                 <a class="btn btn-primary pull-right" href="{{route('patrimonios.edit',$patrimonio->id)}}">
                     Editar
-                </a> 
+                </a>
+                <a class="btn btn-success pull-right emprestar-button" href="">
+                    Emprestar
+                </a>
             </h2>
             <span class="label label-primary">UFC {{$patrimonio->plq_ufc}}</span>
             <span class="label label-danger">FCPC {{$patrimonio->plq_fcpc}}</span>
@@ -38,9 +41,7 @@
                         @if($patrimonio->status_emprestimo && $patrimonio->status_uso)
                             Emprestado
                         @else
-                            <a href="{{action('EmprestimoController@create', $patrimonio->id)}}">
-                                Disponível  
-                            </a>                            
+                            Disponível                           
                         @endif
                     </td>
                     <td>
