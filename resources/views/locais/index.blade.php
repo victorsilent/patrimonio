@@ -31,6 +31,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="center-link">
+            {{ $locais->links() }}
+        </div>
   </div>
 </div>
 

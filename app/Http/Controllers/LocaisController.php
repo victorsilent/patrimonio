@@ -16,7 +16,7 @@ class LocaisController extends Controller
      */
     public function index()
     {
-        $locais = Local::all();
+        $locais = Local::paginate(10);
         return view('locais.index')->with('locais',$locais);
     }
 
@@ -62,7 +62,7 @@ class LocaisController extends Controller
     {
         //TODO Ver porque com Local $local não esta dando certo
         $local = Local::findOrFail($id);
-        $patrimonios = Patrimonio::with('local')->where('local_id',$local->id)->get();
+        $patrimonios = Patrimonio::with('local')->where('local_id',$local->id)->paginate(10);
         
         return view('locais.show')->with('local',$local)->with('patrimonios',$patrimonios);
     }

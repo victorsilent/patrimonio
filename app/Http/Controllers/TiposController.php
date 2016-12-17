@@ -17,7 +17,7 @@ class TiposController extends Controller
      */
     public function index()
     {
-        $tipos = Tipo::all();
+        $tipos = Tipo::paginate(10);
         return view('tipos.index')->with('tipos', $tipos);
     }
 
@@ -62,7 +62,7 @@ class TiposController extends Controller
      */
     public function show(Tipo $tipo)
     {
-        $patrimonios = Patrimonio::where('tipo_id',$tipo->id)->get();
+        $patrimonios = Patrimonio::where('tipo_id',$tipo->id)->paginate(10);
         return view('tipos.show')->with('tipo', $tipo)->with('patrimonios',$patrimonios);
     }
 

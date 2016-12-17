@@ -77,6 +77,9 @@
                     @endforeach
             </tbody>
         </table>
+        <div class="center-link">
+            {{ $movimentacoes->links() }}
+        </div>
     </div>
 </div>
 @endsection

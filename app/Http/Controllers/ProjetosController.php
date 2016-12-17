@@ -14,7 +14,7 @@ class ProjetosController extends Controller
     public function index()
     {
         
-        $projetos = Projeto::all();
+        $projetos = Projeto::paginate(10);
         return view('projetos.index')->with('projetos', $projetos);
     }
 
@@ -60,7 +60,7 @@ class ProjetosController extends Controller
      */
     public function show(Projeto $projeto)
     {
-        $patrimonios = Patrimonio::with('projeto')->where('projeto_id',$projeto->id)->get();
+        $patrimonios = Patrimonio::with('projeto')->where('projeto_id',$projeto->id)->paginate(10);
         return view('projetos.show')->with('patrimonios',$patrimonios)->with('projeto',$projeto);
     }
 

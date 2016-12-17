@@ -31,6 +31,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="center-link">
+            {{ $projetos->links() }}
+        </div>
   </div>
 </div>
 

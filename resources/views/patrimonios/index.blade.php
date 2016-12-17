@@ -51,6 +51,10 @@
                 @endforeach
             </tbody>
         </table>
-
+        
+        <div class="center-link">
+            {{ $patrimonios->links() }}
+        </div>
+        
 </div>
 @endsection

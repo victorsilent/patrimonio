@@ -20,7 +20,7 @@ class PatrimonioController extends Controller
      */
     public function index()
     {
-        $patrimonios = Patrimonio::with('local','tipo','projeto')->get();
+        $patrimonios = Patrimonio::with('local','tipo','projeto')->orderBy('patrimonio','ASC')->paginate(10);
 
         return view('patrimonios.index')->with('patrimonios',$patrimonios);
     }
@@ -73,7 +73,7 @@ class PatrimonioController extends Controller
     public function show($id)
     {
         $patrimonio = Patrimonio::findOrFail($id);
-        $movimentacoes = Historico::where('patrimonio_id',$id)->with('origem','destino')->get();
+        $movimentacoes = Historico::where('patrimonio_id',$id)->with('origem','destino')->paginate(10);
         return view('patrimonios.show')->with([
             'patrimonio' => $patrimonio,
             'movimentacoes' => $movimentacoes,
