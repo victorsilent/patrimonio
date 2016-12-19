@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Patrimonio;
 use App\Tipo;
 use App\Local;
 use App\Projeto;
 use App\Historico;
 use Validator;
+use Illuminate\Validation\Rule;
+
 
 class PatrimonioController extends Controller
 {
 
+
+    public function search(Request $request)
+    {
+        $patrimonios = Patrimonio::search($request['query'])->paginate(10);
+        return view('patrimonios.results')->with('patrimonios',$patrimonios);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -108,20 +117,24 @@ class PatrimonioController extends Controller
     public function update(Request $request, Patrimonio $patrimonio)
     {
         $validator = Validator::make($request->all(), [
-            'patrimonio' => 'required|unique:patrimonios|max:60',
+            'patrimonio' => ['required',
+                                Rule::unique('patrimonios')->ignore($patrimonio->id),
+                                'max:60'],
+
             'tipo_id' => 'required',
         ]);
 
+        
         if ($validator->fails()) {
-            return redirect('patrimonios/create')
+            return redirect('patrimonios/'.$patrimonio->id.'/edit')
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        $patrimonio['status_emprestimo'] = false;
         $patrimonio->update($request->all());
-        return redirect('patrimonios');
+        return redirect('patrimonios/'.$patrimonio->id);
     }
+
 
     /**
      * Remove the specified resource from storage.

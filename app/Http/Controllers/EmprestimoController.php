@@ -23,7 +23,7 @@ class EmprestimoController extends Controller
      */
     public function create()
     {
-        //
+        return view("emprestimos.create");
     }
 
     /**
@@ -34,7 +34,7 @@ class EmprestimoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view("patrimonios.show")
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Projeto;
 use App\Patrimonio;
 use Validator;
+use Illuminate\Validation\Rule;
 
 class ProjetosController extends Controller
 {
@@ -85,17 +86,17 @@ class ProjetosController extends Controller
     public function update(Request $request, Projeto $projeto)
     {
         $validator = Validator::make($request->all(), [
-            'projeto' => 'required|unique:projetos|max:120',
+            'projeto' => ['required',Rule::unique('projetos')->ignore($projeto->id),'max:120'],
         ]);
 
         if ($validator->fails()) {
-            return redirect('projetos/create')
+            return redirect('projetos/'.$projeto->id.'/edit')
                         ->withErrors($validator)
                         ->withInput();
         }
 
         $projeto->update($request->all());
-        return redirect('projetos');
+        return redirect('projetos/'.$projeto->id);
     }
 
 }

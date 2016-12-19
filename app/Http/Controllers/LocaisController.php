@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Local;
 use App\Patrimonio;
 use Validator;
+use Illuminate\Validation\Rule;
 
 class LocaisController extends Controller
 {
@@ -89,17 +90,17 @@ class LocaisController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'local' => 'required|unique:locais|max:60',
+            'local' => ['required',Rule::unique('locais')->ignore($id),'max:60'],
         ]);
 
         if ($validator->fails()) {
-            return redirect('locais/create')
+            return redirect('locais/'.$id.'/edit')
                         ->withErrors($validator)
                         ->withInput();
         }
         $local = Local::findOrFail($id);
         $local->update($request->all());
-        return redirect('locais');
+        return redirect('locais/'.$id);
     }
 
     /**

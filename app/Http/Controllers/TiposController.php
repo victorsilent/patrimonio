@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Patrimonio;
 use App\Tipo;
+use Illuminate\Validation\Rule;
 
 class TiposController extends Controller
 {
@@ -87,18 +88,18 @@ class TiposController extends Controller
     public function update(Request $request, Tipo $tipo)
     {
         $validator = Validator::make($request->all(), [
-            'tipo' => 'required|unique:tipos|max:120',
+            'tipo' => ['required',Rule::unique('tipos')->ignore($tipo->id),'max:120'],
         ]);
 
         if ($validator->fails()) {
-            return redirect('tipos/create')
+            return redirect('tipos/'.$tipo->id.'/edit')
                         ->withErrors($validator)
                         ->withInput();
         }
 
         
         $tipo->update($request->all());
-        return redirect('tipos');
+        return redirect('tipos/'.$tipo->id);
     }
 
     /**

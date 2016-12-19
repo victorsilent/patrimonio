@@ -22,7 +22,7 @@
                 )}}
         </div>
         <hr>
-        {{Form::submit('Cadastrar Projeto',['class'=> 'form-control btn btn-primary'])}}
+        {{Form::submit('Editar Projeto',['class'=> 'form-control btn btn-primary'])}}
       </div>
     {!! Form::close() !!}
   </div>

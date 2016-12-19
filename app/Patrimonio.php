@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Patrimonio extends Model
 {
+    use Searchable;
     
     protected $fillable = [
         'patrimonio', 
@@ -24,6 +26,16 @@ class Patrimonio extends Model
     
 
 	protected $table = 'patrimonios';
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'patrimonios_index';
+    }
 
     public function tipo()
     {
