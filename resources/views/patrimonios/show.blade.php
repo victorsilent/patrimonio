@@ -9,9 +9,11 @@
                 <a class="btn btn-primary pull-right" href="{{route('patrimonios.edit',$patrimonio->id)}}">
                     Editar
                 </a>
-                <a class="btn btn-success pull-right emprestar-button" href="">
-                    Emprestar
-                </a>
+                @if(!$patrimonio->status_emprestimo)
+                    <a class="btn btn-success pull-right emprestar-button" href="{{route('patrimonios.emprestimos.create',$patrimonio->id)}}">
+                        Emprestar
+                    </a>
+                @endif
             </h2>
             <span class="label label-primary">UFC {{$patrimonio->plq_ufc}}</span>
             <span class="label label-danger">FCPC {{$patrimonio->plq_fcpc}}</span>
@@ -38,7 +40,7 @@
                     <td>{{$patrimonio->local->local}}</td>
                     <td>{{$patrimonio->projeto->projeto}}</td>
                     <td>
-                        @if($patrimonio->status_emprestimo && $patrimonio->status_uso)
+                        @if($patrimonio->status_emprestimo)
                             Emprestado
                         @else
                             Disponível                           
@@ -62,23 +64,37 @@
             <thead>
                 <tr>
                     <th>Data da Movimentação</th>
-                    <th>Local de Origem</th>
-                    <th>Local de Destino</th>
+                    <th>Email Solicitante</th>
+                    <th>Nome Solicitante</th>
+                    <th>Local de Movimentação</th>
+                    <th>Status Emprestimo</th>
                 </tr>
             </thead>
             <tbody>
-                    @foreach($movimentacoes as $movimentacao)
+                    @foreach($emprestimos as $emprestimo)
                         <tr>
-                            <td>{{$movimentacao->data_movimentacao}}</td>
-                            <td>{{$movimentacao->origem->local}}</td>
-                            <td>{{$movimentacao->destino->local}}</td>
+                            <td>
+                            {{\Carbon\Carbon::parse($emprestimo->data_emprestimo)->format('d/m/Y')}}
+                            </td>
+                            <td>{{$emprestimo->email_solicitante}}</td>
+                            <td>{{$emprestimo->solicitante}}</td>
+                            <td>{{$emprestimo->local->local}}</td>
+                            <td>
 
+                                @if($emprestimo->data_devolucao == null)
+                                    {!! Form::open(['method' => 'DELETE','url' => route('patrimonios.emprestimos.destroy',[$patrimonio->id,$emprestimo->id]),'onsubmit' => 'return confirm("Deseja mesmo confirmar o recebimento?")']) !!}
+                                    {{Form::submit('Confirmar Devolução',['class'=> ' btn btn-danger'])}}
+                                    {!! Form::close() !!}
+                                @else
+                                    {{$emprestimo->data_devolucao}}
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
             </tbody>
         </table>
         <div class="center-link">
-            {{ $movimentacoes->links() }}
+            {{ $emprestimos->links() }}
         </div>
     </div>
 </div>

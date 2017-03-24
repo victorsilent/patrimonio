@@ -40,7 +40,7 @@
                         <td>{{$patrimonio->local->local}}</td>
                         <td>{{$patrimonio->projeto->projeto}}</td>
                         <td>
-                            @if($patrimonio->status_emprestimo && $patrimonio->status_uso )
+                            @if($patrimonio->status_emprestimo)
                                 Emprestado
                             @else
                                     Disponível                          

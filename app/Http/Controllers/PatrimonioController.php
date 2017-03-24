@@ -9,6 +9,7 @@ use App\Tipo;
 use App\Local;
 use App\Projeto;
 use App\Historico;
+use App\Emprestimo;
 use Validator;
 use Illuminate\Validation\Rule;
 
@@ -82,10 +83,12 @@ class PatrimonioController extends Controller
     public function show($id)
     {
         $patrimonio = Patrimonio::findOrFail($id);
-        $movimentacoes = Historico::where('patrimonio_id',$id)->with('origem','destino')->paginate(10);
+
+        $emprestimos = Emprestimo::where('patrimonio_id',$id)->orderBy('data_devolucao','asc')->with('local')->paginate(10);
+        //dd($movimentacoes);
         return view('patrimonios.show')->with([
             'patrimonio' => $patrimonio,
-            'movimentacoes' => $movimentacoes,
+            'emprestimos' => $emprestimos,
         ]);
     }
 

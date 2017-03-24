@@ -9,6 +9,12 @@ class Historico extends Model
 {
     
 	protected $table = 'historicos';
+    protected $fillable = [
+        'data_movimentacao',
+        'destino_id',
+        'origem_id',
+        'patrimonio_id'
+    ];
 
     public function patrimonio()
     {

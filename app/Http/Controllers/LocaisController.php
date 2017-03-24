@@ -17,7 +17,7 @@ class LocaisController extends Controller
      */
     public function index()
     {
-        $locais = Local::paginate(10);
+        $locais = Local::orderBy('local','asc')->paginate(10);
         return view('locais.index')->with('locais',$locais);
     }
 
